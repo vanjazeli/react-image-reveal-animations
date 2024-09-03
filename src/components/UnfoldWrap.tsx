@@ -15,7 +15,7 @@ export default function UnfoldWrap({ className, revealElement, children }: Unfol
 
 	const animationWrap = useRef<HTMLDivElement>(null);
 	const animationHolder = useRef<HTMLDivElement>(null);
-	const animationDuration = 3;
+	const animationDuration = 0.25;
 	const timeline = useRef<gsap.core.Timeline | null>(null);
 
 	const handleMouseEnter = () => {
@@ -47,7 +47,7 @@ export default function UnfoldWrap({ className, revealElement, children }: Unfol
 		}
 	}, [isAnimating, isHovered]);
 
-	const { x, y } = useMousePosition();
+	const { mousePosition } = useMousePosition();
 
 	const styledRevealElement = React.cloneElement(revealElement, {
 		style: {
@@ -62,7 +62,7 @@ export default function UnfoldWrap({ className, revealElement, children }: Unfol
 		<span className={className} style={{ maxWidth: 'max-content' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 			{children}
 			{(isHovered || isAnimating) && (
-				<div style={{ position: 'fixed', top: `${y + 20}px`, left: `${x + 20}px`, height: '160px', width: '240px', pointerEvents: 'none', overflow: 'hidden' }}>
+				<div style={{ position: 'fixed', top: `${mousePosition.y + 20}px`, left: `${mousePosition.x + 20}px`, height: '160px', width: '240px', pointerEvents: 'none', overflow: 'hidden' }}>
 					<div style={{ height: '100%', width: '100%', objectFit: 'cover', overflow: 'hidden' }} ref={animationWrap}>
 						<div style={{ height: '100%', width: '100%', objectFit: 'cover', overflow: 'hidden' }} ref={animationHolder}>
 							{styledRevealElement}

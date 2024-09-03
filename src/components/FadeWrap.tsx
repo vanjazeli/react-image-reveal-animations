@@ -14,7 +14,7 @@ export default function FadeWrap({ className, revealElement, children }: FadeWra
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	const animationWrap = useRef<HTMLDivElement>(null);
-	const animationDuration = 0.1;
+	const animationDuration = 0.25;
 	const timeline = useRef<gsap.core.Timeline | null>(null);
 
 	const handleMouseEnter = () => {
@@ -42,7 +42,7 @@ export default function FadeWrap({ className, revealElement, children }: FadeWra
 		}
 	}, [isAnimating, isHovered]);
 
-	const { x, y } = useMousePosition();
+	const { mousePosition } = useMousePosition();
 
 	const styledRevealElement = React.cloneElement(revealElement, {
 		style: {
@@ -57,7 +57,7 @@ export default function FadeWrap({ className, revealElement, children }: FadeWra
 		<span className={className} style={{ maxWidth: 'max-content' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 			{children}
 			{(isHovered || isAnimating) && (
-				<div style={{ position: 'fixed', top: `${y + 20}px`, left: `${x + 20}px`, height: '160px', width: '240px', pointerEvents: 'none', opacity: '0', overflow: 'hidden' }} ref={animationWrap}>
+				<div style={{ position: 'fixed', top: `${mousePosition.y + 20}px`, left: `${mousePosition.x + 20}px`, height: '160px', width: '240px', pointerEvents: 'none', opacity: '0', overflow: 'hidden' }} ref={animationWrap}>
 					{styledRevealElement}
 				</div>
 			)}

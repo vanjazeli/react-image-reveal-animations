@@ -14,5 +14,5 @@ export default function useMousePosition() {
 		};
 	}, []);
 
-	return mousePosition;
+	return { mousePosition };
 }

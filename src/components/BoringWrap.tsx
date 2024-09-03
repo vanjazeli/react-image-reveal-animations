@@ -19,7 +19,7 @@ export default function BoringWrap({ className, revealElement, children }: Borin
 		setIsHovered(false);
 	};
 
-	const { x, y } = useMousePosition();
+	const { mousePosition } = useMousePosition();
 
 	const styledRevealElement = React.cloneElement(revealElement, {
 		style: {
@@ -33,7 +33,7 @@ export default function BoringWrap({ className, revealElement, children }: Borin
 	return (
 		<span className={className} style={{ maxWidth: 'max-content' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 			{children}
-			{isHovered && <div style={{ position: 'fixed', top: `${y + 20}px`, left: `${x + 20}px`, height: '160px', width: '240px', pointerEvents: 'none', overflow: 'hidden' }}>{styledRevealElement}</div>}
+			{isHovered && <div style={{ position: 'fixed', top: `${mousePosition.y + 20}px`, left: `${mousePosition.x + 20}px`, height: '160px', width: '240px', pointerEvents: 'none', overflow: 'hidden' }}>{styledRevealElement}</div>}
 		</span>
 	);
 }
