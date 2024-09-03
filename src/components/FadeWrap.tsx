@@ -54,7 +54,7 @@ export default function FadeWrap({ className, revealElement, children }: FadeWra
 	});
 
 	return (
-		<span className={className} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+		<span className={className} style={{ maxWidth: 'max-content' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 			{children}
 			{(isHovered || isAnimating) && (
 				<div style={{ position: 'fixed', top: `${y + 20}px`, left: `${x + 20}px`, height: '160px', width: '240px', pointerEvents: 'none', opacity: '0', overflow: 'hidden' }} ref={animationWrap}>
