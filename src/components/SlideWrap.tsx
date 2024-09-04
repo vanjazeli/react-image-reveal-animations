@@ -3,13 +3,13 @@ import { ReactElement, ReactNode, useState, useRef, useEffect } from 'react';
 import React from 'react';
 import gsap from 'gsap';
 
-type UnfoldWrapProps = {
+type SlideWrapProps = {
 	className?: string;
 	revealElement: ReactElement;
 	children: ReactNode;
 };
 
-export default function UnfoldWrap({ className, revealElement, children }: UnfoldWrapProps) {
+export default function SlideWrap({ className, revealElement, children }: SlideWrapProps) {
 	const [isHovered, setIsHovered] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
 
@@ -33,8 +33,8 @@ export default function UnfoldWrap({ className, revealElement, children }: Unfol
 			timeline.current = gsap
 				.timeline({ onStart: () => setIsAnimating(true) })
 				.add('startLabel')
-				.add(gsap.fromTo(animationWrap.current, { x: '-100%' }, { x: '0%', duration: animationDuration, ease: 'power2.out' }), 'startLabel')
-				.add(gsap.fromTo(animationHolder.current, { x: '100%' }, { x: '0%', duration: animationDuration, ease: 'power2.out' }), 'startLabel');
+				.add(gsap.fromTo(animationWrap.current, { x: 50, y: '100%', rotate: 50 }, { x: 0, y: '0%', rotate: 0, duration: animationDuration, ease: 'power2.out' }), 'startLabel')
+				.add(gsap.fromTo(animationHolder.current, { x: -50, y: '-100%', rotate: -50, scale: 1.8 }, { x: 0, y: 0, rotate: 0, scale: 1, duration: animationDuration, ease: 'power2.out' }), 'startLabel');
 		}
 		if (!isHovered && isAnimating) {
 			gsap.killTweensOf(animationWrap.current);
@@ -42,8 +42,8 @@ export default function UnfoldWrap({ className, revealElement, children }: Unfol
 			timeline.current = gsap
 				.timeline({ onComplete: () => setIsAnimating(false) })
 				.add('startLabel')
-				.add(gsap.to(animationWrap.current, { x: '100%', duration: animationDuration, ease: 'power2.out' }), 'startLabel')
-				.add(gsap.to(animationHolder.current, { x: '-100%', duration: animationDuration, ease: 'power2.out' }), 'startLabel');
+				.add(gsap.to(animationWrap.current, { x: 80, y: -200, rotate: -30, duration: animationDuration, ease: 'power2.out' }), 'startLabel')
+				.add(gsap.to(animationHolder.current, { x: -80, y: 200, rotate: 30, duration: animationDuration, ease: 'power2.out' }), 'startLabel');
 		}
 	}, [isAnimating, isHovered]);
 
